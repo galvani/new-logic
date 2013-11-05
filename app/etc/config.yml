@@ -1,0 +1,23 @@
+app:
+  log:
+    filename: log/app.log
+    verbosity: \Monolog\Logger::DEBUG
+  notification:
+    sms-notification:
+      recipients: ['774877060']
+      credentials:
+        uri: /blah
+        username: neno
+        password: none
+    email-notification:
+      recipients: ['galvani78@gmail.com']
+      parameters:
+        sender: 'galvani78@gmail.com'
+        subject: 'Phone number change at NewLogic.cz'
+
+  wkhtmltopdf:
+      binary: bin/wkhtmltopdf-amd64 # https://code.google.com/p/wkhtmltopdf/
+  newLogicUrl: http://www.newlogic.cz
+  redis:
+    host: localhost
+    prefix: 'newlogic:'

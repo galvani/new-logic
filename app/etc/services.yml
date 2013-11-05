@@ -1,0 +1,55 @@
+parameters:
+    logger.class: Galvani\NewLogic\Logger\Logger
+    config.loader.class: Galvani\NewLogic\Config\FileLoader
+    config.class: \Galvani\NewLogic\Config\Configuration
+    app.class:    Galvani\NewLogic\GalvaniNewLogic
+    smsNotification.class: Galvani\NewLogic\Notification\SMSNotification
+    consoleNotification.class: Galvani\NewLogic\Notification\ConsoleNotification
+    emailNotification.class: Galvani\NewLogic\Notification\EmailNotification
+    storage.class: Galvani\NewLogic\Storage\RedisStorage
+    snapshoter.class: Galvani\NewLogic\Snapshoter\Snapshoter
+
+services:
+    configLoader:
+        class:  %config.loader.class%
+        arguments: ['app/etc']
+        calls:
+          - [load, ['config.yml']]
+
+    config:
+        class: %config.class%
+        arguments: [@configLoader]
+
+    logger:
+        class:     %logger.class%
+        arguments: [@config]
+
+    smsNotification:
+        class:    %smsNotification.class%
+        arguments: [@config, @logger]
+
+    emailNotification:
+            class:    %emailNotification.class%
+            arguments: [@config, @logger, @snapshoter]
+
+    consoleNotification:  # can be used for cron output
+            class:    %consoleNotification.class%
+            arguments: []
+
+    application:
+        class:   %app.class%
+        arguments: [@config, @logger, [@smsNotification, @consoleNotification, @emailNotification], @storage]
+
+    redis:
+        class:  Redis
+
+    storage:
+        class:  %storage.class%
+        arguments: [@config, @redis]
+
+    wkhtmltopdf:
+        class: Knp\Snappy\Pdf
+
+    snapshoter:
+        class:  %snapshoter.class%
+        arguments: [ @wkhtmltopdf, @config ]
