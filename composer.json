@@ -12,7 +12,8 @@
 		"symfony/dom-crawler": "dev-master",
 		"symfony/css-selector": "dev-master",
 		"knplabs/knp-snappy": "*",
-		"swiftmailer/swiftmailer": "5.1.x-dev"
+		"swiftmailer/swiftmailer": "5.1.x-dev",
+		"phpunit/phpunit": "3.7.*"
 },
 	"autoload": {
 		"psr-0": {"Galvani\\": ["src/","vendor/galvani/php-redis"] }
