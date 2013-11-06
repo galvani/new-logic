@@ -5,6 +5,14 @@ namespace Galvani\NewLogic\Snapshoter;
 use Galvani\NewLogic\Config\Configuration;
 use Knp\Snappy\Pdf;
 
+/**
+ * Class Snapshoter
+ *
+ * Creates PDF of given location
+ *
+ * @package Galvani\NewLogic\Snapshoter
+ * @author jan kozak <jan@galvani.cz>
+ */
 class Snapshoter {
 	/**
 	 * @var \Knp\Snappy\Pdf
@@ -15,6 +23,10 @@ class Snapshoter {
 	 */
 	private $configuration;
 
+	/**
+	 * @param Pdf $pdf
+	 * @param Configuration $configuration
+	 */
 	public function __construct(Pdf $pdf, Configuration $configuration) {
 		$this->configuration = $configuration;
 		$this->processor = $pdf;
@@ -26,8 +38,14 @@ class Snapshoter {
 		$this->processor->setBinary($binary);
 	}
 
+	/**
+	 * Saves location given by configuration to a file specified by configuration
+	 *
+	 * @param $destination
+	 * @return void
+	 */
 	public function saveSnapshot($destination) {
-		return $this->processor->generate($this->configuration->get('app.newLogicUrl'),$destination, array(), true);
+		$this->processor->generate($this->configuration->get('app.newLogicUrl'),$destination, array(), true);
 	}
 
 

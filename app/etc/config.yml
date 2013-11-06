@@ -10,9 +10,9 @@ app:
         username: neno
         password: none
     email-notification:
-      recipients: ['galvani78@gmail.com']
+      recipients: ['jan@galvani.cz']
       parameters:
-        sender: 'galvani78@gmail.com'
+        sender: 'notification@galvani.cz'
         subject: 'Phone number change at NewLogic.cz'
 
   wkhtmltopdf:

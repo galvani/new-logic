@@ -7,7 +7,18 @@ use Knp\Snappy\Image;
 use mjohnson\utility\TypeConverter;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
+/**
+ * Class SMSNotification
+ *
+ * !!! Currently unimplemented !!!
+ *
+ * @package Galvani\NewLogic\Notification
+ * @author jan kozak <jan@galvani.cz>
+ */
 class SMSNotification extends BaseNotification {
+	/**
+	 * @inheritdoc
+	 */
 	public function notify($message, $recipient = null) {
 		$messageStructure = array(
 			'recipients'    => $this->getRecipients($recipient),
@@ -25,6 +36,9 @@ class SMSNotification extends BaseNotification {
 		return true;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	protected function getRecipients($recipients = null) {
 		if (is_null($recipients)) {
 			$recipients = parent::getRecipients();
@@ -37,5 +51,8 @@ class SMSNotification extends BaseNotification {
 		return $recipients;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function getAlias() { return 'sms-notification'; }
 }

@@ -1,6 +1,6 @@
 parameters:
     logger.class: Galvani\NewLogic\Logger\Logger
-    config.loader.class: Galvani\NewLogic\Config\FileLoader
+    config.loader.class: Galvani\NewLogic\Config\YamlConfigLoader
     config.class: \Galvani\NewLogic\Config\Configuration
     app.class:    Galvani\NewLogic\GalvaniNewLogic
     smsNotification.class: Galvani\NewLogic\Notification\SMSNotification

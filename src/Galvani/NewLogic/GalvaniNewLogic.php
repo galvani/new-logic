@@ -9,6 +9,12 @@ use Galvani\NewLogic\Notification\Notification;
 use Galvani\NewLogic\Storage\StorageInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
+/**
+ * Class GalvaniNewLogic
+ *
+ * @package Galvani\NewLogic
+ * @author jan kozak <jan@galvani.cz>
+ */
 class GalvaniNewLogic
 {
 	/**
@@ -28,6 +34,12 @@ class GalvaniNewLogic
 	 */
 	private $storage;
 
+	/**
+	 * @param Configuration $config
+	 * @param Logger $logger
+	 * @param $notificationProviders
+	 * @param StorageInterface $storage
+	 */
 	public function __construct(Configuration $config, Logger $logger, $notificationProviders, StorageInterface $storage)
 	{
 		$this->config = $config;
@@ -36,6 +48,9 @@ class GalvaniNewLogic
 		$this->storage = $storage;
 	}
 
+	/**
+	 * Runs the application
+	 */
 	public function run()
 	{
 		$this->logger->info('application started');

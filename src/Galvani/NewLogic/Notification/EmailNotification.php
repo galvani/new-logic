@@ -6,20 +6,39 @@ use Galvani\NewLogic\Config\Configuration;
 use Galvani\NewLogic\Logger\Logger;
 use Galvani\NewLogic\Notification\Notification as BaseNotification;
 use Galvani\NewLogic\Snapshoter\Snapshoter;
-use Knp\Snappy\Image;
-use mjohnson\utility\TypeConverter;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
+/**
+ * Class EmailNotification
+ *
+ * provides notification to email target, creates and attaches snapshot of the tested page
+ *
+ * @package Galvani\NewLogic\Notification
+ * @author jan kozak <jan@galvani.cz>
+ */
 class EmailNotification extends BaseNotification
 {
+	/**
+	 * @var null|mixed
+	 */
 	private $attachments;
 
+	/**
+	 * @param Configuration $configuration
+	 * @param Logger $logger
+	 * @param Snapshoter $snapshoter
+	 */
 	public function __construct(Configuration $configuration, Logger $logger, Snapshoter $snapshoter)
 	{
 		$this->snapshoter = $snapshoter;
 		parent::__construct($configuration, $logger);
 	}
 
+	/**
+	 * @param $message
+	 * @param null $recipient
+	 * @return bool|mixed
+	 */
 	public function notify($message, $recipient = null)
 	{
 		$this->logger->addDebug('Generating screenshot file');
@@ -49,6 +68,13 @@ class EmailNotification extends BaseNotification
 		return true;
 	}
 
+	/**
+	 * Return the recipients for our message
+	 *
+	 * @param array|null $recipients
+	 * @return array|null
+	 * @throws \Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException
+	 */
 	protected function getRecipients($recipients = null)
 	{
 		$recipients = is_null($recipients) ? parent::getRecipients() : $recipients;
@@ -60,5 +86,8 @@ class EmailNotification extends BaseNotification
 		return $recipients;
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function getAlias() { return 'email-notification'; }
 }
